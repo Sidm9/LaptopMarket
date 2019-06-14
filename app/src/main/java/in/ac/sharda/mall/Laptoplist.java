@@ -37,7 +37,7 @@ public class Laptoplist extends AppCompatActivity {
         client=new AsyncHttpClient();
         params=new RequestParams();
 
-        client.get("", new AsyncHttpResponseHandler() {
+        client.get("https://mavenlaptopmarket.herokuapp.com/product/list", new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
 

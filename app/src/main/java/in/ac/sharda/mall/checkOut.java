@@ -38,7 +38,7 @@ public class checkOut extends AppCompatActivity {
         params=new RequestParams();
 
 
-        client.get("", new AsyncHttpResponseHandler() {
+        client.get("https://mavenlaptopmarket.herokuapp.com/checkout", new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 String data=new String(responseBody);

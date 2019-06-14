@@ -32,16 +32,13 @@ public class Laptopdetail extends AppCompatActivity {
         add=(Button)findViewById(R.id.btnAddToCart);
         next=(Button)findViewById(R.id.btnnext);
         back=(Button)findViewById(R.id.btnback);
-
-
-
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 client=new AsyncHttpClient();
                 params=new RequestParams();
 
-                client.post("",params, new AsyncHttpResponseHandler() {
+                client.post("https://mavenlaptopmarket.herokuapp.com/product/detail/id",params, new AsyncHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
 

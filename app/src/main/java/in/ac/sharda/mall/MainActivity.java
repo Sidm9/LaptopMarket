@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if(TextUtils.isEmpty(user_name.getText().toString()))
                 {
                     user_name.setError("Enter User-Name");
@@ -44,13 +45,14 @@ public class MainActivity extends AppCompatActivity {
                 {
                     user_password.setError("Enter password");
                 }
+               /*
                 else
                 {
                     client=new AsyncHttpClient();
                     params=new RequestParams();
                     params.put("userName",user_name.getText().toString());
                     params.put("password",user_password.getText().toString());
-                    client.post("http://10.0.2.2:8080/login", params, new AsyncHttpResponseHandler() {
+                    client.post("https://mavenlaptopmarket.herokuapp.com/", params, new AsyncHttpResponseHandler() {
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
 
@@ -65,18 +67,20 @@ public class MainActivity extends AppCompatActivity {
 //                            {
 //                                submit.setEnabled(false);
 //                            }
+*/
                             Intent i=new Intent(MainActivity.this, Laptoplist.class);
                             startActivity(i);
                         }
 
+/*
                         @Override
                         public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
 
                             Toast.makeText(MainActivity.this, "Unable to Connect", Toast.LENGTH_SHORT).show();
                         }
+                        */
                     });
                 }
             }
-        });
-    }
-}
+
+
