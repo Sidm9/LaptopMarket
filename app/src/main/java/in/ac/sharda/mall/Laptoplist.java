@@ -17,6 +17,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -25,6 +27,7 @@ public class Laptoplist extends AppCompatActivity {
     RequestParams params;
     ListView llist;
     ArrayList cdata=new ArrayList();
+    List ids;
 
 
     @Override
@@ -54,6 +57,7 @@ public class Laptoplist extends AppCompatActivity {
                         cdata.add(id+"\n"+name+"\n"+desc+"\n"+price);
                         ArrayAdapter adapter=new ArrayAdapter(Laptoplist.this,android.R.layout.simple_list_item_1,cdata);
                         llist.setAdapter(adapter);
+                        ids.add(id);
 
                     }
 
@@ -76,8 +80,16 @@ public class Laptoplist extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 Intent i=new Intent(Laptoplist.this,Laptopdetail.class);
+
+
+                String idd=(ids.get(position)).toString();
+                i.putExtra("id",idd);
+
                 startActivity(i);
+
             }
         });
+
    }
+
 }

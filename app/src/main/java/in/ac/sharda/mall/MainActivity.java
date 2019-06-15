@@ -1,7 +1,6 @@
 package in.ac.sharda.mall;
 
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -33,30 +32,29 @@ public class MainActivity extends AppCompatActivity {
         user_password=(EditText)findViewById(R.id.userPassword);
         submit=(Button)findViewById(R.id.login);
 
+
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if(TextUtils.isEmpty(user_name.getText().toString()))
-                {
-                    user_name.setError("Enter User-Name");
-                }
-                if(TextUtils.isEmpty(user_password.getText().toString()))
-                {
-                    user_password.setError("Enter password");
-                }
-               /*
-                else
-                {
-                    client=new AsyncHttpClient();
-                    params=new RequestParams();
-                    params.put("userName",user_name.getText().toString());
-                    params.put("password",user_password.getText().toString());
-                    client.post("https://mavenlaptopmarket.herokuapp.com/", params, new AsyncHttpResponseHandler() {
-                        @Override
-                        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-
-
+//                if(TextUtils.isEmpty(user_name.getText().toString()))
+//                {
+//                    user_name.setError("Enter User-Name");
+//                }
+//                if(TextUtils.isEmpty(user_password.getText().toString()))
+//                {
+//                    user_password.setError("Enter password");
+//                }
+//                else
+//                {
+//                    client=new AsyncHttpClient();
+//                    params=new RequestParams();
+//                    params.put("userName",user_name.getText().toString());
+//                    params.put("password",user_password.getText().toString());
+//                    client.post("http://192.168.43.20:8080/login", params, new AsyncHttpResponseHandler() {
+//                        @Override
+//                        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+//
+//                            Toast.makeText(MainActivity.this, "gone", Toast.LENGTH_SHORT).show();
 //                            String str=new String(responseBody);
 //                            if(str.equals("true"))
 //                            {
@@ -67,20 +65,21 @@ public class MainActivity extends AppCompatActivity {
 //                            {
 //                                submit.setEnabled(false);
 //                            }
-*/
-                            Intent i=new Intent(MainActivity.this, Laptoplist.class);
-                            startActivity(i);
-                        }
+//                        }
+//
+//                        @Override
+//                        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+//
+//                            Toast.makeText(MainActivity.this, new String(responseBody), Toast.LENGTH_SHORT).show();
+//                        }
+//                    });
+//                }
 
-/*
-                        @Override
-                        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
 
-                            Toast.makeText(MainActivity.this, "Unable to Connect", Toast.LENGTH_SHORT).show();
-                        }
-                        */
-                    });
-                }
+                Intent i=new Intent(MainActivity.this, Laptoplist.class);
+                startActivity(i);
+
             }
-
-
+        });
+    }
+}

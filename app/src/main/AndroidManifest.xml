@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".checkOut"></activity>
+        <activity android:name=".checkOut" />
         <activity android:name=".Cart" />
         <activity android:name=".Laptopdetail" />
         <activity android:name=".Laptoplist" />
@@ -21,5 +21,6 @@
             </intent-filter>
         </activity>
     </application>
+
 
 </manifest>

@@ -1,4 +1,5 @@
 package in.ac.sharda.mall;
+
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,6 +26,8 @@ public class Cart extends AppCompatActivity {
     RequestParams params;
     ArrayList data=new ArrayList();
     Button checkout;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +39,7 @@ public class Cart extends AppCompatActivity {
         client=new AsyncHttpClient();
         params=new RequestParams();
 
-        client.get("", new AsyncHttpResponseHandler() {
+        client.get("https://mavenlaptopmarket.herokuapp.com/order/history", new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 String cdata=new String(responseBody);
