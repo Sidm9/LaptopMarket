@@ -15,7 +15,7 @@
         android:id="@+id/LaptopName"
         android:textColor="#00FFFF"
         android:textSize="40dp"
-        android:hint="Laptop Name"
+        android:hint="Loading..."
         android:gravity="center_horizontal"
         android:layout_marginTop="12dp"
         android:textStyle="bold"/>
@@ -30,14 +30,14 @@
         android:id="@+id/LaptopDescription"
         android:textSize="28dp"
         android:textColor="#FFFF00"
-        android:text="Product Description"
+        android:hint="Loading..."
         android:gravity="center_horizontal"
         android:layout_marginTop="20dp"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/LaptopPrice"
-        android:text="Price"
+        android:hint="Loading..."
         android:textColor="@color/colorPrimaryDark"
         android:gravity="center_horizontal"
         android:textSize="32dp"
@@ -49,7 +49,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/btnAddToCart"
         android:textColor="@color/colorPrimary"
-        android:text="Add to cart"
+        android:hint="Add to cart"
         android:layout_gravity="center"
         android:layout_marginTop="16dp"/>
 

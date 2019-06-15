@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -21,25 +23,26 @@ import java.util.ArrayList;
 import cz.msebera.android.httpclient.Header;
 
 public class Cart extends AppCompatActivity {
-    ListView items;
+    TextView count;
     AsyncHttpClient client;
     RequestParams params;
     ArrayList data=new ArrayList();
     Button checkout;
-
+    int c=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
 
-        items=(ListView)findViewById(R.id.cart_items);
+        count=(TextView)findViewById(R.id.tc);
         checkout=(Button)findViewById(R.id.check);
 
         client=new AsyncHttpClient();
         params=new RequestParams();
 
-        client.get("https://mavenlaptopmarket.herokuapp.com/order/history", new AsyncHttpResponseHandler() {
+
+        client.get("https://mavenlaptopmarket.herokuapp.com/cart/products/count", new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 String cdata=new String(responseBody);
@@ -47,16 +50,10 @@ public class Cart extends AppCompatActivity {
                     JSONArray array=new JSONArray(cdata);
                     for(int i=0;i<array.length();i++)
                     {
-                        JSONObject obj=array.getJSONObject(i);
-                        int id=obj.getInt("id");
-                        int price=obj.getInt("price");
-                        String name=obj.getString("name");
-                        String desc=obj.getString("desc");
-                        data.add(id+"\n"+name+"\n"+desc+"\n"+price);
-                        ArrayAdapter adapter=new ArrayAdapter(Cart.this,android.R.layout.simple_list_item_1,data);
-                        items.setAdapter(adapter);
-
+                        c++;
                     }
+
+                    count.setText(""+c);
 
                 }
                 catch (JSONException j)
@@ -69,14 +66,15 @@ public class Cart extends AppCompatActivity {
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
 
+                Toast.makeText(Cart.this, "Error occurred", Toast.LENGTH_SHORT).show();
             }
         });
 
         checkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent i=new Intent(Cart.this,checkOut.java);
-                //startActivity(i);
+                Intent i=new Intent(Cart.this,checkOut.class);
+                startActivity(i);
             }
         });
 

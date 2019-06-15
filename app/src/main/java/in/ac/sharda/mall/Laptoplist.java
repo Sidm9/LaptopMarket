@@ -27,7 +27,7 @@ public class Laptoplist extends AppCompatActivity {
     RequestParams params;
     ListView llist;
     ArrayList cdata=new ArrayList();
-    List ids;
+    List ids=new ArrayList();
 
 
     @Override
@@ -55,10 +55,9 @@ public class Laptoplist extends AppCompatActivity {
                         String name=obj.getString("name");
                         String desc=obj.getString("desc");
                         cdata.add(id+"\n"+name+"\n"+desc+"\n"+price);
-                        ArrayAdapter adapter=new ArrayAdapter(Laptoplist.this,android.R.layout.simple_list_item_1,cdata);
+                        ArrayAdapter adapter=new ArrayAdapter(Laptoplist.this,R.layout.list,cdata);
                         llist.setAdapter(adapter);
                         ids.add(id);
-
                     }
 
                 }
@@ -83,7 +82,7 @@ public class Laptoplist extends AppCompatActivity {
 
 
                 String idd=(ids.get(position)).toString();
-                i.putExtra("id",idd);
+                i.putExtra("key",idd);
 
                 startActivity(i);
 

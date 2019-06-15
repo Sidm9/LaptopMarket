@@ -24,6 +24,9 @@ public class Laptopdetail extends AppCompatActivity {
     Button add;
     AsyncHttpClient client;
     RequestParams params;
+    int lprice;
+    String lname,ldesc,m;
+
 
 
     @Override
@@ -40,29 +43,23 @@ public class Laptopdetail extends AppCompatActivity {
 
         client=new AsyncHttpClient();
         params=new RequestParams();
+
         Bundle extra=getIntent().getExtras();
 
-        String iddd=extra.getString("id");
+        m=extra.getString("key");
 
-        client.get("https://mavenlaptopmarket.herokuapp.com/product/detail/"+iddd, new AsyncHttpResponseHandler() {
+        client.get("https://mavenlaptopmarket.herokuapp.com/product/detail/"+m, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-
                 String data=new String(responseBody);
                 try {
-                    JSONArray array=new JSONArray(data);
-                    for(int i=0;i<array.length();i++)
-                    {
-                        JSONObject obj=array.getJSONObject(i);
-                        int lid=obj.getInt("id");
-                        int lprice=obj.getInt("price");
-                        String lname=obj.getString("name");
-                        String ldesc=obj.getString("desc");
+                    JSONObject obj=new JSONObject(data);
+                        lprice=obj.getInt("price");
+                        lname=obj.getString("name");
+                        ldesc=obj.getString("desc");
                         name.setText(lname);
                         desc.setText(ldesc);
-                        price.setText(lprice);
-                    }
-
+                        price.setText(""+lprice);
                 }
                 catch (JSONException j)
                 {
@@ -73,7 +70,7 @@ public class Laptopdetail extends AppCompatActivity {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-
+                System.out.println("FAIL");
             }
         });
 
@@ -82,8 +79,30 @@ public class Laptopdetail extends AppCompatActivity {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i=new Intent(Laptopdetail.this,Cart.class);
 
+                params.put("id",m);
+                params.put("price",lprice);
+                params.put("name",lname);
+                params.put("desc",ldesc);
+
+                client.post("https://mavenlaptopmarket.herokuapp.com/cart/add/product",params, new AsyncHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+
+                        if(new String(responseBody).equals("true"))
+                        {
+                            Toast.makeText(Laptopdetail.this, "Added to the Cart Successfully", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+                        Toast.makeText(Laptopdetail.this, "Error occurred", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                Intent i=new Intent(Laptopdetail.this,Cart.class);
                 startActivity(i);
 
             }
