@@ -19,64 +19,31 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Set;
+import java.util.TreeSet;
 
 import cz.msebera.android.httpclient.Header;
 
 public class Cart extends AppCompatActivity {
-    TextView count;
-    AsyncHttpClient client;
-    RequestParams params;
-    ArrayList data=new ArrayList();
+    TextView countt;
     Button checkout;
-    int c=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
-
-        count=(TextView)findViewById(R.id.tc);
+        countt=(TextView)findViewById(R.id.tc);
         checkout=(Button)findViewById(R.id.check);
-
-        client=new AsyncHttpClient();
-        params=new RequestParams();
-
-
-        client.get("https://mavenlaptopmarket.herokuapp.com/cart/products/count", new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                String cdata=new String(responseBody);
-                try {
-                    JSONArray array=new JSONArray(cdata);
-                    for(int i=0;i<array.length();i++)
-                    {
-                        c++;
-                    }
-
-                    count.setText(""+c);
-
-                }
-                catch (JSONException j)
-                {
-
-                }
-
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-
-                Toast.makeText(Cart.this, "Error occurred", Toast.LENGTH_SHORT).show();
-            }
-        });
-
+        final Bundle extras=getIntent().getExtras();
+        countt.setText(extras.get("count").toString());
         checkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i=new Intent(Cart.this,checkOut.class);
+                i.putExtra("final_checkout",extras.get("checkout").toString());
                 startActivity(i);
             }
         });
-
     }
 }

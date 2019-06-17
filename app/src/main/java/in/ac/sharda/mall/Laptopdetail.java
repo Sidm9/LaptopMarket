@@ -17,6 +17,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.TreeSet;
+
 import cz.msebera.android.httpclient.Header;
 
 public class Laptopdetail extends AppCompatActivity {
@@ -26,28 +30,21 @@ public class Laptopdetail extends AppCompatActivity {
     RequestParams params;
     int lprice;
     String lname,ldesc,m;
-
-
-
+    String[] g;
+    static int c=0;
+    static Set detail=new TreeSet();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_laptopdetail);
-
-
         name=(TextView)findViewById(R.id.LaptopName);
         desc=(TextView)findViewById(R.id.LaptopDescription);
         price=(TextView)findViewById(R.id.LaptopPrice);
         add=(Button)findViewById(R.id.btnAddToCart);
-
-
         client=new AsyncHttpClient();
         params=new RequestParams();
-
         Bundle extra=getIntent().getExtras();
-
         m=extra.getString("key");
-
         client.get("https://mavenlaptopmarket.herokuapp.com/product/detail/"+m, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
@@ -67,46 +64,26 @@ public class Laptopdetail extends AppCompatActivity {
                 }
 
             }
-
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 System.out.println("FAIL");
             }
         });
-
-
-
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                params.put("id",m);
-                params.put("price",lprice);
-                params.put("name",lname);
-                params.put("desc",ldesc);
-
-                client.post("https://mavenlaptopmarket.herokuapp.com/cart/add/product",params, new AsyncHttpResponseHandler() {
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-
-                        if(new String(responseBody).equals("true"))
-                        {
-                            Toast.makeText(Laptopdetail.this, "Added to the Cart Successfully", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-
-                        Toast.makeText(Laptopdetail.this, "Error occurred", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
+                c++;
+                detail.add(m);
+                detail.add(lname);
+                detail.add(ldesc);
+                detail.add(""+lprice);
+                Toast.makeText(Laptopdetail.this, "Added to the Cart Successfully", Toast.LENGTH_SHORT).show();
                 Intent i=new Intent(Laptopdetail.this,Cart.class);
+                i.putExtra("count",c);
+                i.putExtra("checkout", detail.toString());
                 startActivity(i);
 
             }
         });
-
     }
 }

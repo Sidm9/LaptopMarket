@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/LaptopPrice"
         android:hint="Loading..."
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="#ffffff"
         android:gravity="center_horizontal"
         android:textSize="32dp"
         android:layout_marginTop="16dp"

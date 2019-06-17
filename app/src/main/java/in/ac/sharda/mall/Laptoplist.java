@@ -80,7 +80,6 @@ public class Laptoplist extends AppCompatActivity {
 
                 Intent i=new Intent(Laptoplist.this,Laptopdetail.class);
 
-
                 String idd=(ids.get(position)).toString();
                 i.putExtra("key",idd);
 
@@ -88,7 +87,5 @@ public class Laptoplist extends AppCompatActivity {
 
             }
         });
-
    }
-
 }
